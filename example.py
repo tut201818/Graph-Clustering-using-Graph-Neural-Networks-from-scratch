@@ -5,13 +5,18 @@ import torch
 import torch.nn.functional as F
 from torch.nn import Linear
 
-from torch_geometric.datasets import TUDataset
+#from torch_geometric.datasets import TUDataset
+from torch_geometric.datasets import Planetoid
 from torch_geometric.loader import DataLoader
 from torch_geometric.nn import DenseGraphConv, DMoNPooling, GCNConv
 from torch_geometric.utils import to_dense_adj, to_dense_batch
 
-path = osp.join(osp.dirname(osp.realpath(__file__)), '..', 'data', 'PROTEINS')
-dataset = TUDataset(path, name='PROTEINS').shuffle()
+#path = osp.join(osp.dirname(osp.realpath(__file__)), '..', 'data', 'PROTEINS')
+#dataset = TUDataset(path, name='PROTEINS').shuffle()
+dataset = 'cora'
+path = osp.join(osp.dirname(osp.realpath(__file__)), '.', 'data', dataset)
+dataset = Planetoid(path, dataset, transform=T.NormalizeFeatures())
+
 avg_num_nodes = int(dataset.data.x.size(0) / len(dataset))
 n = (len(dataset) + 9) // 10
 test_dataset = dataset[:n]
@@ -103,4 +108,5 @@ for epoch in range(1, 101):
     print(f'Epoch: {epoch:03d}, Train Loss: {train_loss:.3f}, '
           f'Train Acc: {train_acc:.3f}, Val Loss: {val_loss:.3f}, '
           f'Val Acc: {val_acc:.3f}, Test Loss: {test_loss:.3f}, '
+
           f'Test Acc: {test_acc:.3f}')
