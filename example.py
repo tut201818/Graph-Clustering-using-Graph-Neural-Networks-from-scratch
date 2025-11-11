@@ -6,6 +6,7 @@ import torch.nn.functional as F
 from torch.nn import Linear
 
 #from torch_geometric.datasets import TUDataset
+import torch_geometric.transforms as T
 from torch_geometric.datasets import Planetoid
 from torch_geometric.loader import DataLoader
 from torch_geometric.nn import DenseGraphConv, DMoNPooling, GCNConv
@@ -110,3 +111,4 @@ for epoch in range(1, 101):
           f'Val Acc: {val_acc:.3f}, Test Loss: {test_loss:.3f}, '
 
           f'Test Acc: {test_acc:.3f}')
+
