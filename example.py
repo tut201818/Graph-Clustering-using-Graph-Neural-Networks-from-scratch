@@ -16,7 +16,7 @@ from torch_geometric.utils import to_dense_adj, to_dense_batch
 #dataset = TUDataset(path, name='PROTEINS').shuffle()
 dataset = 'cora'
 path = osp.join(osp.dirname(osp.realpath(__file__)), '.', 'data', dataset)
-dataset = Planetoid(path, dataset, transform=T.NormalizeFeatures())
+dataset = Planetoid(path, dataset).shuffle()
 
 avg_num_nodes = int(dataset.data.x.size(0) / len(dataset))
 n = (len(dataset) + 9) // 10
@@ -111,4 +111,5 @@ for epoch in range(1, 101):
           f'Val Acc: {val_acc:.3f}, Test Loss: {test_loss:.3f}, '
 
           f'Test Acc: {test_acc:.3f}')
+
 
