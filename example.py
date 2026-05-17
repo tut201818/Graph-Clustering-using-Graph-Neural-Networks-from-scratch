@@ -34,6 +34,9 @@ class Net(torch.nn.Module):
 
         self.conv1 = GCNConv(in_channels, hidden_channels)
         num_nodes = ceil(0.5 * avg_num_nodes)
+        #
+        print([hidden_channels, hidden_channels], num_nodes)
+        #
         self.pool1 = DMoNPooling([hidden_channels, hidden_channels], num_nodes)
 
         self.conv2 = DenseGraphConv(hidden_channels, hidden_channels)
